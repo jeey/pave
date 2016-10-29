@@ -31,6 +31,12 @@
 	animation-play-state : running;
 }
 
+.video-bg {
+	background-image: url(../img/pave.png);
+    background-repeat: no-repeat;
+    background-position: center center;	
+}
+
 /* Chrome, Safari, Opera */
 @-webkit-keyframes myfirst {
     0%   {opacity: 1;}
