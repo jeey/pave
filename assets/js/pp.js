@@ -92,7 +92,7 @@ $(function() {
 
 	    var formData = new FormData(form[0]);
 	    $.ajax({
-	        url: 'do_volunteer.php',  //Server script to process data
+	        url: 'do_order.php',  //Server script to process data
 	        type: 'POST',
 	        xhr: function() {  // Custom XMLHttpRequest
 	            var myXhr = $.ajaxSettings.xhr();
@@ -121,38 +121,24 @@ $(function() {
 	    });
 	}
 
-	$("#candidateButtons button").click(function() {
-		if ($(this).hasClass("active")) {
-			$(this).removeClass("active");
-		} else {
+	$("#paveButtons button").click(function() {
+		if (!$(this).hasClass("active")) {
+			$("#paveButtons button").removeClass("active");
 			$(this).addClass("active");
+
+			$("#paveInput").val($(this).val());
+			
 		}
-
-		var candidateValue = "";
-		var candidateSeparator = "";
-
-		$(".photo-element").hide();
-
-		$("#candidateButtons button.active").each(function() {
-			candidateValue += candidateSeparator;
-
-			if ($(this).val() == "candidate") {
-				$(".photo-element").show();
-			}
-
-			candidateValue += $(this).val();
-			candidateSeparator = ",";
-		});
-
-		$("#candidateInput").val(candidateValue);
+		$(".vpn-with").hide();
+		$(".vpn-" + $("#paveInput").val()).show();
 	});
 
-	$("#sexButtons button").click(function() {
+	$("#deliveryButtons button").click(function() {
 		if (!$(this).hasClass("active")) {
-			$("#sexButtons button").removeClass("active");
+			$("#deliveryButtons button").removeClass("active");
 			$(this).addClass("active");
 
-			$("#sexInput").val($(this).val());
+			$("#deliveryInput").val($(this).val());
 		}
 	});
 
@@ -165,29 +151,10 @@ $(function() {
 		submit($("#contactForm"));
 	});
 
-	$("#icandidateButton").click(function(event) {
+	$("#orderButton").click(function(event) {
 		event.preventDefault();
 		submit($("#contactForm"));
 	});
-
-	$(".ijoinButton").click(function(event) {
-		event.preventDefault();
-		window.location.replace(joinUrl);
-	});
-
-	$(".idonateButton").click(function(event) {
-		event.preventDefault();
-		window.location.replace(donateUrl);
-	});
-
-	$("input[type=checkbox]").click(function(event) {
-		if ($(this).attr("checked")) {
-			$(this).removeAttr("checked");
-		}
-		else {
-			$(this).attr("checked", "checked");
-		}
-	});
-
-	$(".photo-element").show();
+	
+	$(".vpn-with").hide();
 });

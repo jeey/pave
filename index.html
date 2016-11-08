@@ -350,60 +350,55 @@
 						<fieldset>
 							<legend>
 								<a href="#paveCollapse" data-toggle="collapse" data-target="#paveCollapse" aria-expanded="true" 
-									aria-controls="paveCollapse" data-parent="form">Vos pavés</a>
+									aria-controls="paveCollapse" data-parent="form">Votre pavé</a>
 							</legend>
 			
 							<div class="collapse in" id="paveCollapse">
-			
-								<div class="form-group has-feedback">
-	                                <div class="form-group col-xs-12 floating-label-form-group controls">
-	                                    <label>Votre identité</label>
-	                                    <input type="text" class="form-control" placeholder="Votre identité" id="identity" name="identity" required data-validation-required-message="Veuillez entrer votre identité.">
-	                                    <p class="help-block text-danger"></p>
-	                                </div>
+
+								<div class="form-group">
+									<label class="col-md-2 control-label">Pavé </label>
+									<div class="col-md-10">
+										<input id="paveInput" name="paveInput" value="" type="hidden" required data-validation-required-message="Veuillez choisir la configuration de votre pavé.">
+										<div id="paveButtons" class="btn-group" role="group" aria-label="…">
+											<button value="without" type="button" class="btn btn-default">Nu</button>
+											<button value="with" type="button" class="btn btn-default">Avec VPN</button>
+										</div>
+										<p class="help-block">
+											Le pavé nu vous permet un choix du prestataire VPN, le pavé déjà configuré permet une connection simple une fois reçu.
+										</p>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-2 control-label">Livraison </label>
+									<div class="col-md-10">
+										<input id="deliveryInput" name="deliveryInput" value="" type="hidden" required data-validation-required-message="Veuillez choisir un mode de livraison.">
+										<div id="deliveryButtons" class="btn-group" role="group" aria-label="…">
+											<button value="byhand" type="button" class="btn btn-default">En mains propres</button>
+											<button value="postal" type="button" class="btn btn-default">Par la poste</button>
+										</div>
+										<p class="help-block">
+											Vous connaissez quelqu'un du staff qui peut vous le remettre en main propre, économisez les frais de port. Sinon il faut payer un peu plus.
+										</p>
+									</div>
 								</div>
 			
-								<div class="form-group has-feedback">
+								<div class="form-group has-feedback vpn-with">
 	                                <div class="form-group col-xs-6 floating-label-form-group controls">
-	                                    <label>Votre adresse mail …</label>
-	                                    <input type="text" class="form-control" placeholder="Votre adresse mail …" id="xxx" name="xxx" required data-validation-required-message="Veuillez entrer votre addresse mel.">
+	                                    <label>Un identifiant …</label>
+	                                    <input type="text" class="form-control" placeholder="Un identifiant …" id="vpnLogin" name="vpnLogin" required data-validation-required-message="Veuillez entrer un identifiant pour le partenaire VPN.">
 	                                    <p class="help-block text-danger"></p>
 	                                </div>
 	                                <div class="form-group col-xs-6 floating-label-form-group controls">
-	                                    <label>… et sa confirmation</label>
-	                                    <input type="text" class="form-control" placeholder="… et sa confirmation" id="confirmationMail" name="confirmationMail" required data-validation-required-message="Veuillez entrer une confirmation pour votre adresse mel.">
+	                                    <label>… et un mot de passe</label>
+	                                    <input type="password" class="form-control" placeholder="… et un mot de passe" id="vpnPassword" name="vpnPassword" required data-validation-required-message="Veuillez entrer un identifiant pour le partenaire VPN.">
 	                                    <p class="help-block text-danger"></p>
 	                                </div>
+									<p class="help-block" style="height: 20px;">
+										Parce qu'il faut bien vous authentifier à un moment donné chez notre partenaire.
+									</p>
 								</div>
-			
-								<div class="form-group has-feedback">
-	                                <div class="form-group col-xs-12 floating-label-form-group controls">
-	                                    <label>Votre adresse</label>
-	                                    <input type="text" class="form-control" placeholder="Votre adresse (première ligne…)" id="line1" name="line1" required data-validation-required-message="Veuillez entrer votre adresse.">
-	                                    <p class="help-block text-danger"></p>
-	                                </div>
-								</div>
-			
-								<div class="form-group has-feedback">
-	                                <div class="form-group col-xs-12 floating-label-form-group controls">
-	                                    <label>Votre adresse</label>
-	                                    <input type="text" class="form-control" placeholder="Votre adresse (deuxième ligne…)" id="line2" name="line2" data-validation-required-message="Veuillez entrer votre adresse.">
-	                                    <p class="help-block text-danger"></p>
-	                                </div>
-								</div>
-			
-								<div class="form-group has-feedback">
-	                                <div class="form-group col-xs-4 floating-label-form-group controls">
-	                                    <label>Votre code postal</label>
-	                                    <input type="text" class="form-control" placeholder="Votre CP" id="zipCode" name="zipCode" data-validation-required-message="Veuillez entrer votre code postal.">
-	                                    <p class="help-block text-danger"></p>
-	                                </div>
-	                                <div class="form-group col-xs-8 floating-label-form-group controls">
-	                                    <label>Votre ville</label>
-	                                    <input type="text" class="form-control" placeholder="Votre ville" id="city" name="city" data-validation-required-message="Veuillez entrer votre ville.">
-	                                    <p class="help-block text-danger"></p>
-	                                </div>
-								</div>
+
 							</div>
 						</fieldset>
 
@@ -814,6 +809,7 @@
 	</div>
 
     <script src="assets/js/min.js"></script>
+    <script src="assets/js/pp.js"></script>
 
     <!-- Script to Activate Formstone Wallpaper jQuery Plugin - Use this script if you want to use an .mp4, .ovg, or .webm video as a background video. -->
     <script>
