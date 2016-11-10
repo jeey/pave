@@ -1,6 +1,27 @@
 var donateUrl = "https://don.partipirate.org";
 var joinUrl = "https://adhesion.partipirate.org";
 
+function computeCost() {
+	var cost = 0;
+
+	switch($("#paveInput").val()) {
+		case "with":
+			cost += 60;
+			break;
+		case "without":
+			cost += 45;
+			break;
+	}
+
+	switch($("#deliveryInput").val()) {
+		case "postal":
+			cost += 5;
+			break;
+	}
+	
+	return cost;
+}
+
 $(function() {
 //	function changeStatus(id, status, message) {
 //		var glyphStatus = $("#" + id + "Status");
@@ -88,22 +109,22 @@ $(function() {
 	function submit(form) {
 		if (!check(form)) return;
 
-		$("#volunteerVeil").show();
+		$("#veil").show();
 
 	    var formData = new FormData(form[0]);
 	    $.ajax({
 	        url: 'do_order.php',  //Server script to process data
 	        type: 'POST',
-	        xhr: function() {  // Custom XMLHttpRequest
-	            var myXhr = $.ajaxSettings.xhr();
-	            if(myXhr.upload){ // Check if upload property exists
-	                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
-	            }
-	            return myXhr;
-	        },
+//	        xhr: function() {  // Custom XMLHttpRequest
+//	            var myXhr = $.ajaxSettings.xhr();
+//	            if(myXhr.upload){ // Check if upload property exists
+//	                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
+//	            }
+//	            return myXhr;
+//	        },
 	        //Ajax events
 	        success: function(data) {
-    			$("#volunteerVeil").hide();
+    			$("#veil").hide();
         		data = JSON.parse(data);
 
         		if (data.ko) {
@@ -131,6 +152,8 @@ $(function() {
 		}
 		$(".vpn-with").hide();
 		$(".vpn-" + $("#paveInput").val()).show();
+		
+		$(".cost").text(computeCost());
 	});
 
 	$("#deliveryButtons button").click(function() {
@@ -140,6 +163,8 @@ $(function() {
 
 			$("#deliveryInput").val($(this).val());
 		}
+
+		$(".cost").text(computeCost());
 	});
 
 	$('#confirmationMail').bind('paste', function(event) {

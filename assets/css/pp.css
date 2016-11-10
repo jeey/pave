@@ -8,7 +8,7 @@
     width: 100%;
 }
 
-#volunteerVeil {
+#veil {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -18,7 +18,7 @@
 	z-index: 1050;
 }
 
-#volunteerVeil img {
+#veil img {
 	margin-top: 200px;
 
 	-webkit-animation: myfirst 2s;
