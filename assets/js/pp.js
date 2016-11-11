@@ -128,11 +128,13 @@ $(function() {
         		data = JSON.parse(data);
 
         		if (data.ko) {
-
+	    			$("#contactForm").hide();
+	    			$("#problem").show();
         		}
         		else {
 	    			$("#contactForm").hide();
 	    			$("#response").show();
+        			window.location = data.paymentLink
         		}
 	        },
 	        data: formData,
