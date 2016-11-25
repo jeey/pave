@@ -36,7 +36,9 @@
     background-repeat: no-repeat;
     background-position: center center;	
 }
-
+.purple-link{
+    color: white;
+}
 /* Chrome, Safari, Opera */
 @-webkit-keyframes myfirst {
     0%   {opacity: 1;}
