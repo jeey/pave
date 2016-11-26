@@ -178,8 +178,21 @@ $(function() {
 		submit($("#contactForm"));
 	});
 
-	$("#orderButton").click(function(event) {
+	$("#order-by-cb-button").click(function(event) {
 		event.preventDefault();
+		$("#paymentType").val("cb");
+		submit($("#contactForm"));
+	});
+
+	$("#order-by-transfer-button").click(function(event) {
+		event.preventDefault();
+		$("#paymentType").val("transfer");
+		submit($("#contactForm"));
+	});
+
+	$("#order-by-check-button").click(function(event) {
+		event.preventDefault();
+		$("#paymentType").val("check");
 		submit($("#contactForm"));
 	});
 	

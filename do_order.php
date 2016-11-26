@@ -114,9 +114,21 @@ $backUrl = $config["morning"]["back_url"] . $order["ord_id"];
 
 $payment = array("pay_request" => array());
 $payment["pay_order_id"] = $order["ord_id"];
-$payment["pay_type"] = "morning";
 $payment["pay_amount"] = number_format($order["ord_amount"], 2, '.', '');
-$payment["pay_request"] = $morningApi->createPayment($payment["pay_amount"], "$title - PP_" . date("Y") . "_" . $payment["pay_order_id"], "direct", $payment["pay_order_id"], $backUrl);
+
+if ($_REQUEST["paymentType"] == "transfer") {
+	$payment["pay_type"] = "transfer";
+	$payment["pay_request"] = array("link" => "paymentTransfer.php?order=" . $order["ord_id"]);
+}
+else if ($_REQUEST["paymentType"] == "check") {
+	$payment["pay_type"] = "check";
+	$payment["pay_request"] = array("link" => "paymentCheck.php?order=" . $order["ord_id"]);
+}
+else {
+	$payment["pay_type"] = "morning";
+	$payment["pay_request"] = $morningApi->createPayment($payment["pay_amount"], "$title - PP_" . date("Y") . "_" . $payment["pay_order_id"], "direct", $payment["pay_order_id"], $backUrl);
+}
+
 $payment["pay_response"] = "";
 
 $paymentBo->save($payment);

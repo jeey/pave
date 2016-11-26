@@ -425,7 +425,10 @@
 				
                 <div class="row">
                     <div class="col-lg-11 col-lg-offset-1 text-center" data-scrollreveal="enter right over 1s">
-				        <button id="orderButton" type="submit" class="btn btn-lg btn-primary btn-square btn-raised btn-order">Je commande</button>
+                    	<input type="hidden" id="paymentType" name="paymentType" value="cb" />
+				        <button id="order-by-cb-button" type="submit" class="btn btn-lg btn-primary btn-square btn-raised btn-order">Je commande par CB</button>
+				        <button id="order-by-check-button" type="submit" class="btn btn-lg btn-primary btn-square btn-raised btn-order">Je commande par chèque</button>
+				        <button id="order-by-transfer-button" type="submit" class="btn btn-lg btn-primary btn-square btn-raised btn-order">Je commande par virement</button>
                     </div>
 				</div>
 				
