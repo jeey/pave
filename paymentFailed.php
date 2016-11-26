@@ -109,7 +109,7 @@
 	                    </div>
 
                         <div class="page-link" data-scrollreveal="enter bottom after .6s">
-                            <a href="index.php" class="btn btn-scroll-light sink">
+                            <a href="index.html" class="btn btn-scroll-light sink">
                                 <i class="fa fa-angle-double-right" style="position: relative; top: -4px;"></i>
                             </a>
                         </div>

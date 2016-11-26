@@ -1,4 +1,14 @@
-<!DOCTYPE html>
+<?php 
+require_once("config/database.php");
+require_once("engine/bo/OrderBo.php");
+
+$connection = openConnection();
+
+$orderBo = OrderBo::newInstance($connection);
+
+$order = $orderBo->get($_REQUEST["order"]);
+
+?><!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="utf-8">
@@ -102,9 +112,14 @@
                         
 	                    <div class="row text-center">
 	                        <div class="col-lg-8 col-lg-offset-2">
-	                            <h2>Paiement accepté</h2>
+	                            <h2>Paiement par virement</h2>
 	                            <hr class="light">
-	                            <p>Votre pavé vous sera prochainement envoyé.</p>
+	                            <p style="background-color: rgba(255,255,255,0.5); color: black; ">Votre avez décidé de payer votre pavé par virement. <br />
+	                            	Veuillez transférer la somme de <?php echo $order["ord_amount"]; ?>&euro; en indiquant 
+	                            	le code &laquo;PAVE-<?php echo $order["ord_id"]; ?>&raquo;
+	                            	sur le compte bancaire suivant :<br />
+	                            	Parti Pirate<br />
+	                            	FR76 4255 9000 4741 0200 3318 752</p>
 	                        </div>
 	                    </div>
 
