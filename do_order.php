@@ -1,20 +1,20 @@
 <?php /*
-	Copyright 2014-2015 Cédric Levieux, Jérémy Collot, ArmagNet
+	Copyright 2014-2015 Cédric Levieux, Parti Pirate
 
-	This file is part of VPN.
+	This file is part of LePave.
 
-    VPN is free software: you can redistribute it and/or modify
+    LePave is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    VPN is distributed in the hope that it will be useful,
+    LePave is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with VPN.  If not, see <http://www.gnu.org/licenses/>.
+    along with LePave.  If not, see <http://www.gnu.org/licenses/>.
 */
 define("WITHOUT", 45);
 define("WITH", 60);
@@ -23,11 +23,14 @@ define("BYHAND", 0);
 
 require_once("config/database.php");
 require_once("engine/morning/api.php");
+require_once("engine/payplug/init.php");
 require_once("engine/bo/AddressBo.php");
 require_once("engine/bo/OrderBo.php");
 require_once("engine/bo/PaymentBo.php");
 
+\Payplug\Payplug::setSecretKey($config["payplug"]["token"]);
 $morningApi = new MorningApiClient($config["morning"]["api_url"], $config["morning"]["token"]);
+
 $connection = openConnection();
 
 $addressBo = AddressBo::newInstance($connection);
@@ -106,8 +109,6 @@ else {
 
 $orderBo->save($order);
 
-$backUrl = $config["morning"]["back_url"] . $order["ord_id"];
-
 // if ($_SERVER["HTTP_REFERER"]) {
 // 	$backUrl .= "&referer=" . urlencode($_SERVER["HTTP_REFERER"]);
 // }
@@ -124,12 +125,47 @@ else if ($_REQUEST["paymentType"] == "check") {
 	$payment["pay_type"] = "check";
 	$payment["pay_request"] = array("link" => "paymentCheck.php?order=" . $order["ord_id"]);
 }
-else {
+else if (false) {
+	$backUrl = $config["morning"]["back_url"] . $order["ord_id"];
+	
 	$payment["pay_type"] = "morning";
 	$payment["pay_request"] = $morningApi->createPayment($payment["pay_amount"], "$title - PP_" . date("Y") . "_" . $payment["pay_order_id"], "direct", $payment["pay_order_id"], $backUrl);
 }
+else {
+	$backUrl = $config["payplug"]["back_url"] . $order["ord_id"];
+	
+	$payment["pay_type"] = "payplug";
+	
+	$request = array(
+		'amount'        	=> $payment["pay_amount"] * 100,
+		'currency'      	=> 'EUR',
+		'customer'      	=> array(
+			'email'         => $address["add_email"],
+		),
+		'hosted_payment'	=> array(
+			'return_url'    => $config["payplug"]["return_url"] . $payment["pay_order_id"],
+			'cancel_url'    => $config["payplug"]["cancel_url"] . $payment["pay_order_id"]
+		),
+		'notification_url'	=> $config["payplug"]["notification_url"] . $payment["pay_order_id"],
+		'metadata'      	=> array(
+			'transaction_id'    => $payment["pay_order_id"]
+		)
+	);
+
+	$paymentRequest = \Payplug\Payment::create($request);
+
+	$payment["pay_request"] = array();
+	$payment["pay_request"]["request"] = $request;
+	$payment["pay_request"]["response"] = array();
+	$payment["pay_request"]["response"]["id"] = $paymentRequest->id;
+	
+	$payment["pay_request"]["link"] = $paymentRequest->hosted_payment->payment_url;
+
+//	$payment["pay_request"] = $morningApi->createPayment($payment["pay_amount"], "$title - PP_" . date("Y") . "_" . $payment["pay_order_id"], "direct", $payment["pay_order_id"], $backUrl);
+}
 
 $payment["pay_response"] = "";
+$payment["pay_status"] = "calling";
 
 $paymentBo->save($payment);
 

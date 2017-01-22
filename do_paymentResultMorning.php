@@ -1,20 +1,20 @@
 <?php /*
-	Copyright 2014-2015 Cédric Levieux, Jérémy Collot, ArmagNet
+	Copyright 2014-2015 Cédric Levieux, Parti Pirate
 
-	This file is part of VPN.
+	This file is part of LePave.
 
-    VPN is free software: you can redistribute it and/or modify
+    LePave is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    VPN is distributed in the hope that it will be useful,
+    LePave is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with VPN.  If not, see <http://www.gnu.org/licenses/>.
+    along with LePave.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 require_once("config/database.php");
@@ -51,7 +51,7 @@ if ($payment["pay_type"] == "morning") {
 // }
 
 if ($response["status"] == "finished") {
-	$order = $orderBo->get($payment["pay_order_id"]);
+//	$order = $orderBo->get($payment["pay_order_id"]);
 
 // 	foreach($order["ord_lines"] as $orderLine) {
 // //		print_r($orderLine);
