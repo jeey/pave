@@ -126,14 +126,10 @@ else if ($_REQUEST["paymentType"] == "check") {
 	$payment["pay_request"] = array("link" => "paymentCheck.php?order=" . $order["ord_id"]);
 }
 else if (false) {
-	$backUrl = $config["morning"]["back_url"] . $order["ord_id"];
-	
 	$payment["pay_type"] = "morning";
 	$payment["pay_request"] = $morningApi->createPayment($payment["pay_amount"], "$title - PP_" . date("Y") . "_" . $payment["pay_order_id"], "direct", $payment["pay_order_id"], $backUrl);
 }
 else {
-	$backUrl = $config["payplug"]["back_url"] . $order["ord_id"];
-	
 	$payment["pay_type"] = "payplug";
 	
 	$request = array(
