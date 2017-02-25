@@ -1,3 +1,5 @@
+/* global $ */
+
 var donateUrl = "https://don.partipirate.org";
 var joinUrl = "https://adhesion.partipirate.org";
 
@@ -84,7 +86,7 @@ $(function() {
 //		return true;
 //	}
 
-	function check(form) {
+	function check(form, showError) {
 		var status = true;
 //
 //		form.find("input").each(function() {
@@ -96,6 +98,68 @@ $(function() {
 //			}
 //		});
 //
+
+		if ($("#paveInput").val() == "") {
+			status = false;
+			// error
+		}
+		else if ($("#paveInput").val() == "with") {
+			if ($("#vpnLogin").val() == "") {
+				status = false;
+				// error
+			}
+
+			if ($("#vpnPassword").val() == "") {
+				status = false;
+				// error
+			}
+		}
+
+		if ($("#deliveryInput").val() == "") {
+			status = false;
+			// error
+		}
+
+		if ($("#identity").val() == "") {
+			status = false;
+			// error
+		}
+
+		if ($("#xxx").val() == "") {
+			status = false;
+			// error
+		}
+		else if ($("#confirmationMail").val() == "") {
+			status = false;
+			// error
+		}
+		else if ($("#confirmationMail").val() != $("#xxx").val()) {
+			status = false;
+			// error
+		}
+
+		if ($("#line1").val() == "") {
+			status = false;
+			// error
+		}
+
+		if ($("#zipCode").val() == "") {
+			status = false;
+			// error
+		}
+
+		if ($("#city").val() == "") {
+			status = false;
+			// error
+		}
+
+		if (status) {
+			$("#order-by-cb-button, #order-by-transfer-button, #order-by-check-button").removeAttr("disabled");
+		}
+		else {
+			$("#order-by-cb-button, #order-by-transfer-button, #order-by-check-button").attr("disabled", "disabled");
+		}
+
 		return status;
 	}
 
@@ -107,7 +171,7 @@ $(function() {
 	}
 
 	function submit(form) {
-		if (!check(form)) return;
+		if (!check(form, true)) return;
 
 		$("#veil").show();
 
@@ -150,12 +214,13 @@ $(function() {
 			$(this).addClass("active");
 
 			$("#paveInput").val($(this).val());
-			
 		}
 		$(".vpn-with").hide();
 		$(".vpn-" + $("#paveInput").val()).show();
 		
 		$(".cost").text(computeCost());
+		
+		check($("#contactForm"), false);
 	});
 
 	$("#deliveryButtons button").click(function() {
@@ -167,6 +232,8 @@ $(function() {
 		}
 
 		$(".cost").text(computeCost());
+
+		check($("#contactForm"), false);
 	});
 
 	$('#confirmationMail').bind('paste', function(event) {
@@ -195,6 +262,11 @@ $(function() {
 		$("#paymentType").val("check");
 		submit($("#contactForm"));
 	});
-	
+
+	$("#vpnLogin, #vpnPassword, #deliveryInput, #identity, #xxx, #confirmationMail, #line1, #zipCode, #city").keyup(function() {
+		check($("#contactForm"), false);
+	});
+
 	$(".vpn-with").hide();
+	check($("#contactForm"), false);
 });
