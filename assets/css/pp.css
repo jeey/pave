@@ -34,8 +34,11 @@
 .video-bg {
     background-image: url(../img/pave_22.jpg);
     background-repeat: no-repeat;
-    background-position: center center;	
+    background-position: center center;
+    background-size: 50%;
+    background-color: black;
 }
+
 .purple-link{
     color: white;
 }
